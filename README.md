@@ -1,6 +1,6 @@
 # Mercado de games
 
-*Esse projeto foi desenvolvido como conclusão do curso de certificação de Data Analytics do Google. A visualização produzida pode ser acessada [aqui](https://public.tableau.com/app/profile/jpfreire/viz/Mercadodegames/Regio). As informações a seguir são explicações de como foram feitas as etapas para chegar no resultado.*
+*Esse projeto foi desenvolvido para o curso Profissão: Analista de Dados da EBAC. As informações a seguir são explicações de como foram feitas as etapas para chegar no resultado.*
 
 ## Introdução
 
@@ -12,40 +12,32 @@ A indústria de jogos eletrônicos tem demonstrado crescimento nos últimos anos
 - Qual ano com a maior quantidade de jogos vendidos?
 - Quais outras observações podem ser extraídas?
 
-Foi utilizado o conjunto de dados disponível no [Kaggle](https://www.kaggle.com/datasets/gregorut/videogamesales) a partir de informações obtidas do site [VGChartz](https://www.vgchartz.com/) entre os anos de 1980 e 2020. O dataset contém jogos que tiveram mais de 100.000 unidades vendidas.
+Foi utilizado o conjunto de dados disponível no [Kaggle](https://www.kaggle.com/datasets/gregorut/videogamesales) a partir de informações obtidas do site [VGChartz](https://www.vgchartz.com/) entre os anos de 1980 e 2020*. O dataset contém jogos que tiveram mais de 100.000 unidades vendidas.
 
-As ferramentas utilizadas foram o **Google Sheets** e **Tableau**.
+Para a análise foram utilizados **SQL** e **Python**.
 
 Observações:
 
 - O dataset não considera jogos de celular
+- *O dataset apresenta um erro onde não há dados suficientes no período de 2017 à 2020
+ 
+  ![Erro](https://github.com/jpfreire0/mercado-jogos/blob/main/image1.png?raw=true)
+
 ## Análise
 
-Para a análise foram produzidas tabelas dinâmicas com os cálculos necessários para obter as respostas. O primeiro ponto observado é que existe correlação entre o número de jogos lançados e o número de unidades vendidas. 
+O gênero que com maior valor no número de vendas entre os anos de 2000 e 2010 é o de **Ação**.
 
-![Untitled](https://i.imgur.com/SxHJTmI.png)
+``` sql
+SELECT "Genre", SUM("Global_Sales") AS "Soma de vendas"
+FROM vgsales 
+WHERE "Year" > 1999 and "Year" < 2011
+GROUP BY Genre 
+ORDER BY "Soma de vendas" DESC
+```
 
-O gênero que mais aparece entre os anos de 2000 e 2010 é o de Ação.
+![Untitled](https://github.com/jpfreire0/mercado-jogos/blob/main/image2.png?raw=true)
 
-![Untitled](https://i.imgur.com/mMGzdhj.png)
 
-Foi necessário identificar quais eram os jogos que apareceram mais de uma vez e os que apareceram apenas uma. Com isso foi adicionado uma coluna para identificar a quantidade de vezes que um jogo aparece na lista.
-
-Uma descoberta é que jogos multiplataforma aparecem em menor quantidade, mas venderam mais do que os que foram lançados apenas em uma plataforma. Isso não necessariamente significa que jogos que aparecem 1 vez na lista não tiveram outras versões que podem ter vendido menos unidades e não computado para a lista. 
-
-![Untitled](https://i.imgur.com/eGL3wQ3.png)
-
-A empresa que aparece com a maior quantidade de unidades vendidas é a Nintendo
-
-![Untitled](https://i.imgur.com/mFvX8A5.png)
-
-2008 foi o ano com a maior quantidade de vendas
-
-![Untitled](https://i.imgur.com/I9M7bTF.png)
-
-A região da América do Norte representa 49,3% das vendas
-
-![Untitled](https://i.imgur.com/jA22J6W.png)
 
 ## Conclusão
 
