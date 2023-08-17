@@ -87,7 +87,7 @@ FROM vgsales
 ## Conclusões
 
 - O gênero com maior número de vendas entre 2000 e 2010 foi **Ação**.
-- No geral jogos **em apenas uma plataforma venderam mais** que jogos lançados em multiplataforma, porém jogos **multiplataformas venderam mais por unidade vendida**.
+- No geral jogos **em apenas uma plataforma venderam mais** que jogos lançados em multiplataforma, porém jogos **multiplataformas venderam mais por unidade**.
 - **Nintendo** foi a empresa/publicadora com mais unidades vendidas.
 - **2006** foi o ano com o maior faturamento.
 - A região da **América do Norte** representa aproximadamente 49,3% das vendas.
