@@ -19,13 +19,14 @@ Para a análise foram utilizados **SQL** e **Python**.
 Observações:
 
 - O dataset não considera jogos de celular
+- Há alguns valores nulos
 - *O dataset apresenta um erro onde não há dados suficientes no período de 2017 à 2020
  
   ![Erro](https://github.com/jpfreire0/mercado-jogos/blob/main/image1.png?raw=true)
 
 ## Análise
 
-O gênero que com maior valor no número de vendas entre os anos de 2000 e 2010 é o de **Ação**.
+### O gênero com maior valor no número de vendas entre os anos de 2000 e 2010 é o de **Ação**.
 
 ``` sql
 SELECT "Genre", SUM("Global_Sales") AS "Soma de vendas"
@@ -37,6 +38,22 @@ ORDER BY "Soma de vendas" DESC
 
 ![Untitled](https://github.com/jpfreire0/mercado-jogos/blob/main/image2.png?raw=true)
 
+### Jogos únicos venderam mais que jogos multiplataforma
+
+``` sql
+SELECT "Type", COUNT(*) AS "Total", SUM("Global_Sales") AS "Soma de vendas"
+FROM (
+    SELECT "Global_Sales", "Name",
+           CASE
+               WHEN COUNT(*) > 1 THEN 'Multiplataforma'
+               ELSE 'Jogo único'
+           END AS "Type"
+    FROM vgsales
+    GROUP BY "Name"
+) AS Subquery
+GROUP BY "Type";
+```
+![Untitled](https://github.com/jpfreire0/mercado-jogos/blob/main/image3.png?raw=true)
 
 
 ## Conclusão
