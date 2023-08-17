@@ -9,12 +9,12 @@ A indústria de jogos eletrônicos tem demonstrado crescimento nos últimos anos
 - Qual gênero mais popular entre os anos de 2000 e 2010?
 - Jogos multiplataforma venderam mais que jogos lançados apenas em uma plataforma?
 - Quais empresas mais venderam jogos?
-- Qual ano com a maior quantidade de jogos vendidos?
+- Qual ano com a maior quantidade de vendas?
 - Quais outras observações podem ser extraídas?
 
 Foi utilizado o conjunto de dados disponível no [Kaggle](https://www.kaggle.com/datasets/gregorut/videogamesales) a partir de informações obtidas do site [VGChartz](https://www.vgchartz.com/) entre os anos de 1980 e 2020*. O dataset contém jogos que tiveram mais de 100.000 unidades vendidas.
 
-Para a análise foram utilizados **SQL** e **Python**.
+Para a análise foi utilizado **SQL**.
 
 Observações:
 
@@ -22,11 +22,11 @@ Observações:
 - Há alguns valores nulos
 - *O dataset apresenta um erro onde não há dados suficientes no período de 2017 à 2020
  
-  ![Erro](https://github.com/jpfreire0/mercado-jogos/blob/main/image1.png?raw=true)
-
+  ![image1](https://github.com/jpfreire0/mercado-jogos/blob/main/image1.png?raw=true)
+  
 ## Análise
 
-### O gênero com maior valor no número de vendas entre os anos de 2000 e 2010 é o de **Ação**.
+- O gênero com maior valor no número de vendas entre os anos de 2000 e 2010 é o de **Ação**.
 
 ``` sql
 SELECT "Genre", SUM("Global_Sales") AS "Soma de vendas"
@@ -36,9 +36,9 @@ GROUP BY Genre
 ORDER BY "Soma de vendas" DESC
 ```
 
-![Untitled](https://github.com/jpfreire0/mercado-jogos/blob/main/image2.png?raw=true)
+![image2](https://github.com/jpfreire0/mercado-jogos/blob/main/image2.png?raw=true)
 
-### Jogos únicos venderam mais que jogos multiplataforma
+- Jogos únicos venderam mais que jogos multiplataforma, porém proporcionalmente os multiplataformas renderam mais.
 
 ``` sql
 SELECT "Type", COUNT(*) AS "Total", SUM("Global_Sales") AS "Soma de vendas"
@@ -50,22 +50,44 @@ FROM (
            END AS "Type"
     FROM vgsales
     GROUP BY "Name"
-) AS Subquery
+) 
 GROUP BY "Type";
 ```
-![Untitled](https://github.com/jpfreire0/mercado-jogos/blob/main/image3.png?raw=true)
+![image3](https://github.com/jpfreire0/mercado-jogos/blob/main/image3.png?raw=true)
 
+- As empresas (publishers) com maiores faturamentos:
 
-## Conclusão
+``` sql
+SELECT "Publisher", "Global_Sales"
+FROM vgsales
+group BY "Publisher"
+ORDER BY "Global_Sales" DESC
+```
 
-### [Link para a apresentação](https://drive.google.com/file/d/1Ht0hCdF7D_5zZUGyvSmeHzFW5Cjtpqqp/view?usp=share_link)
+ ![image4](https://github.com/jpfreire0/mercado-jogos/blob/main/image4.png?raw=true)
 
-- O gênero com maior número de vendas entre 2000 e 2010 foi Ação.
-- Jogos multiplataforma venderam mais que jogos lançados em uma plataforma
-- Nintendo foi a publicadora com mais unidades vendidas
-- 2008 foi o ano com a maior quantidade de vendas
-- Playstation 2 foi a plataforma com mais unidades de jogos vendidas
-- A região da América do Norte representa 49,3% das vendas
-- Correlação entre o número de jogos lançados e o número de unidades vendidas
+- Ano com a maior quantidade de vendas
+  
+``` sql
+SELECT "Year", "Global_Sales"
+FROM vgsales
+group BY "Year"
+ORDER BY "Global_Sales" DESC
+```
 
+![image5](https://github.com/jpfreire0/mercado-jogos/blob/main/image5.png?raw=true) 
 
+- Porcentagem de vendas por região
+``` sql
+SELECT (SUM("NA_Sales") / SUM("Global_Sales")) * 100 AS "NA", (SUM("EU_Sales")/ SUM("Global_Sales")) * 100 AS "EU", (SUM("JP_Sales")/ SUM("Global_Sales")) * 100 AS "JP", (SUM("Other_Sales")/ SUM("Global_Sales")) * 100 AS "Other"
+FROM vgsales
+```
+ ![image6](https://github.com/jpfreire0/mercado-jogos/blob/main/image6.png?raw=true)
+
+## Conclusões
+
+- O gênero com maior número de vendas entre 2000 e 2010 foi **Ação**.
+- No geral jogos **em apenas uma plataforma venderam mais** que jogos lançados em multiplataforma, porém jogos **multiplataformas venderam mais por unidade vendida**.
+- **Nintendo** foi a empresa/publicadora com mais unidades vendidas.
+- **2006** foi o ano com o maior faturamento.
+- A região da **América do Norte** representa aproximadamente 49,3% das vendas.
