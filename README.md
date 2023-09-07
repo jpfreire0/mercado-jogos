@@ -79,7 +79,10 @@ ORDER BY "Global_Sales" DESC
 
 - Porcentagem de vendas por região
 ``` sql
-SELECT (SUM("NA_Sales") / SUM("Global_Sales")) * 100 AS "NA", (SUM("EU_Sales")/ SUM("Global_Sales")) * 100 AS "EU", (SUM("JP_Sales")/ SUM("Global_Sales")) * 100 AS "JP", (SUM("Other_Sales")/ SUM("Global_Sales")) * 100 AS "Other"
+SELECT SUM("NA_Sales") / SUM("Global_Sales") * 100 AS "NA",
+SUM("EU_Sales")/ SUM("Global_Sales") * 100 AS "EU",
+SUM("JP_Sales")/ SUM("Global_Sales") * 100 AS "JP",
+SUM("Other_Sales")/ SUM("Global_Sales") * 100 AS "Other"
 FROM vgsales
 ```
  ![image6](https://github.com/jpfreire0/mercado-jogos/blob/main/image6.png?raw=true)
